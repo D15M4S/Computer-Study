@@ -70,5 +70,103 @@
 
 ### 2. 리눅스로 다운로드 톺아보기 🎇
 
++ 프로그램을 다운받기 위해서 우리는 ubuntu repository를 사용합니다.
+
+```shell
+# 사용자 확인
+~$ whoami
+
+# 다운로드 가능한 SW의 리스트를 가져옵니다.
+~$ sudo apt update
+
+# 리스트를 조회합니다.
+~$ sudo apt-cache
+
+# 다운 받고자 하는 SW가 리스트에 있는 지 조회합니다.
+~$ sudo apt-cache search [찾을 SW]
+~$ sudo apt-cache search [찾을 SW] | grep [찾을 SW]
+
+# 포트 확인
+~$ sudo apt install net-tools
+~$ sudo apt net-tools
+~$ netstat -nlpt
+
+```
++ sudo (Superuser Do) - 일반 사용자가 슈퍼 유저의 권한으로 명령을 실행할 수 있도록 합니다.
++ apt (Advanced Package Tool) - Ubuntu에서 소프트웨어 패키지를 관리하기 위한 고급 패키지 관리 도구입니다.
+
 ### 3. 리눅스로 프로세스 톺아보기 💘
-   
+
+#### A. 서비스 확인하기
+```shell
+# Service (systemctl의 wrapper script)
+# 실행 중인 서비스 확인
+~$ service --status-all
+
+# 서비스 종료
+~$ service [서비스명] stop
+
+# 서비스 시작
+~$ service [서비스명] start
+```
+
+```shell
+# SystemCtl (System Control)
+
+# 시스템에서 사용 가능한 모든 유닛의 목록과 그 상태 표시
+~$ sudo systemctl list-unit-files
+
+# 실행 중인 서비스 검색
+# Ctrl + C 를 통해 나올 수 있다.
+~$ sudo list-unit-files | grep [서비스명]
+
+# 상태 확인
+~$ sudo systemctl status [서비스명]
+
+# 서비스 종료
+~$ sudo systemctl stop [서비스명]
+
+# 서비스 시작
+~$ sudo systemctl start [서비스명]
+
+# 서비스 재시작
+# 정확하게 systemctl로 종료하지 않으면 restart로 시작해야 한다
+~$ sudo systemctl restart [서비스명]
+```
+
+
+#### B. 프로세스 확인하기
+
++ 프로세스 = 실행 중인 프로그램의 인스턴스 입니다.
++ 서비스 = 데몬(daemon)이라고 불리는 해당 프로세스는 시스템이 부팅될 때 자동으로 시작되고, 백그라운드에서 지속적으로 실행되는 장기 프로세스입니다.
+
+```shell
+# 실행 중인 프로세스를 조회합니다.
+~$ ps -ef
+
+# SIGKILL 강제로 죽이기 
+~$ sudo kill -9 [PID]
+
+# SIGTERM 프로세스를 안전하게 종료시키기
+~$ sudo kill -15 [PID]
+
+# 프로그램 중지
+~$ sudo kill -2 [PID]
+
+```
++ UID : 프로세스의 주인
++ PID : 프로세스의 아이디
+
++ ps (Process Status) : 실행 중인 프로세스의 정보를 표시하는 데 사용됩니다.
+  + -e : (everyone) 모든 사용자에 대한 프로세스를 표시합니다
+  + -f : (full) 프로세스에 대한 상세 프로세스를 표시합니다
+
+### 4. 리눅스로 권한 톺아보기 🎠
+
+```shell
+# root 계정으로 변경된다.
+~$ su root
+# 패스워드를 변경한다
+~$ sudo passwd [사용자]
+```
++ su (Switch User) : 현재 사용자의 권한을 다른 사용자로 전환하는 데 사용됩니다.
